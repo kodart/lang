@@ -23,7 +23,7 @@ public class BigramModel<T> implements Serializable {
         total++;
     }
 
-    public int getTotalCount() {
+    public int getTotal() {
         return total;
     }
 
@@ -34,6 +34,6 @@ public class BigramModel<T> implements Serializable {
 
     public double getFrequency(T object, T prior) {
         UnigramModel<T> model = counts.get(prior);
-        return model == null ? 0 : model.getCount(object) / model.getTotalCount();
+        return model == null ? 0 : model.getCount(object) / model.getTotal();
     }
 }

@@ -19,7 +19,7 @@ public class UnigramModel<T> implements Serializable {
         total++;
     }
 
-    public int getTotalCount() {
+    public int getTotal() {
         return total;
     }
 

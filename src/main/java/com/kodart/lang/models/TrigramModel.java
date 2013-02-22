@@ -23,7 +23,7 @@ public class TrigramModel<T> implements Serializable {
         total++;
     }
 
-    public int getTotalCount() {
+    public int getTotal() {
         return total;
     }
 
@@ -34,7 +34,7 @@ public class TrigramModel<T> implements Serializable {
 
     public double getFrequency(T object, T prior, T preprior) {
         BigramModel<T> model = counts.get(preprior);
-        return model == null ? 0 : model.getCount(object, prior) / (double) model.getTotalCount();
+        return model == null ? 0 : model.getCount(object, prior) / (double) model.getTotal();
     }
 }
 
