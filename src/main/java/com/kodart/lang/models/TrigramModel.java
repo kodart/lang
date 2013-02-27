@@ -13,11 +13,11 @@ public class TrigramModel<T> implements Serializable {
 
     private int total;
 
-    public void add(T object, T prior, T preprior) {
-        BigramModel<T> model = counts.get(prior);
+    public void add(T object, T prior, T xPrior) {
+        BigramModel<T> model = counts.get(xPrior);
         if (model == null) {
             model = new BigramModel<T>();
-            counts.put(preprior, model);
+            counts.put(xPrior, model);
         }
         model.add(object, prior);
         total++;
@@ -27,13 +27,13 @@ public class TrigramModel<T> implements Serializable {
         return total;
     }
 
-    public int getCount(T object, T prior, T preprior) {
-        BigramModel<T> model = counts.get(preprior);
+    public int getCount(T object, T prior, T xPrior) {
+        BigramModel<T> model = counts.get(xPrior);
         return model == null ? 0 : model.getCount(object, prior);
     }
 
-    public double getFrequency(T object, T prior, T preprior) {
-        BigramModel<T> model = counts.get(preprior);
+    public double getFrequency(T object, T prior, T xPrior) {
+        BigramModel<T> model = counts.get(xPrior);
         return model == null ? 0 : model.getCount(object, prior) / (double) model.getTotal();
     }
 }
