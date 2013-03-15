@@ -2,6 +2,8 @@ package com.kodart.lang.models;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * User: Artur Sharipov
@@ -13,13 +15,13 @@ public class BigramModel<T> implements Serializable {
 
     private int total;
 
-    public void add(T object, T prior) {
-        UnigramModel<T> model = counts.get(prior);
+    public void add(T item, T prior) {
+        UnigramModel<T> model = counts.get(item);
         if (model == null) {
             model = new UnigramModel<T>();
-            counts.put(prior, model);
+            counts.put(item, model);
         }
-        model.add(object);
+        model.add(prior);
         total++;
     }
 
@@ -27,13 +29,17 @@ public class BigramModel<T> implements Serializable {
         return total;
     }
 
-    public int getCount(T object, T prior) {
-        UnigramModel<T> model = counts.get(prior);
-        return model == null ? 0 : model.getCount(object);
+    public int getCount(T item, T prior) {
+        UnigramModel<T> model = counts.get(item);
+        return model == null ? 0 : model.getCount(prior);
     }
 
-    public double getFrequency(T object, T prior) {
-        UnigramModel<T> model = counts.get(prior);
-        return model == null ? 0 : model.getCount(object) / model.getTotal();
+    public double getProbability(T item, T prior) {
+        UnigramModel<T> model = counts.get(item);
+        return model == null ? 0 : model.getCount(prior) / model.getTotal();
+    }
+
+    public int getTotal(T item) {
+        return counts.get(item).getTotal();
     }
 }

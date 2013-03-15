@@ -2,6 +2,8 @@ package com.kodart.lang.models;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * User: Artur Sharipov
@@ -14,8 +16,7 @@ public class UnigramModel<T> implements Serializable {
 
     public void add(T object) {
         Integer value = counts.get(object);
-        value = value == null ? 1 : value + 1;
-        counts.put(object, value);
+        counts.put(object, value == null ? 1 : value + 1);
         total++;
     }
 
@@ -28,7 +29,7 @@ public class UnigramModel<T> implements Serializable {
         return value == null ? 0 : value;
     }
 
-    public double getFrequency(T object) {
+    public double getProbability(T object) {
         return getCount(object) / (double)total;
     }
 }
